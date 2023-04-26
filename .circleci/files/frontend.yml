@@ -6,15 +6,18 @@ Parameters:
     Type: String
 
 Resources:
-  WebsiteBucket:
+  MyBucket:
     Type: AWS::S3::Bucket
     Properties:
-      BucketName: !Sub "udapeople-${ID}"
       AccessControl: PublicRead
-      WebsiteConfiguration:
-        IndexDocument: index.html
-        ErrorDocument: 404.html
-  
+      BucketName: !Sub "udapeople-${ID}"
+      ObjectOwnership: BucketOwnerPreferred6
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: false
+        BlockPublicPolicy: false
+        IgnorePublicAcls: true
+        RestrictPublicBuckets: false
+   
   WebsiteBucketPolicy:
     Type: AWS::S3::BucketPolicy
     Properties:
