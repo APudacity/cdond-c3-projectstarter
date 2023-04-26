@@ -162,6 +162,28 @@ jobs:
             - inventory.txt
       - destroy-environment:
           workflow_id: ${CIRCLE_WORKFLOW_ID}
+          
+  configure-infrastructure:
+    docker:
+      - image: python:3.7-alpine3.11
+    steps:
+      - checkout
+      - add_ssh_keys:
+          fingerprints: ["75:4d:2f:11:4e:91:71:41:02:b9:27:86:70:ea:ae:f1"]      # Add ssh keys with fingerprint
+      - attach_workspace:
+          at: /tmp/.circleci/ansible
+      - run:
+          name: Install dependencies
+          command: |
+            apk add --update ansible
+            pip install awscli
+      - run:
+          name: Configure server
+          command: |
+            cat /tmp/.circleci/ansible/inventory.txt
+            ansible-playbook -i /tmp/.circleci/ansible/inventory.txt .circleci/ansible/configure-server.yml
+      - destroy-environment:
+          workflow_id: ${CIRCLE_WORKFLOW_ID}          
 
 workflows:
   default:
