@@ -4,19 +4,13 @@ Parameters:
   ID:
     Description: Unique identifier.
     Type: String
-
 Resources:
   WebsiteBucket:
     Type: AWS::S3::Bucket
     Properties:
-      AccessControl: PublicRead   
       BucketName: !Sub "udapeople-${ID}"
-      ObjectOwnership: BucketOwnerPreferred6
       PublicAccessBlockConfiguration:
-        BlockPublicAcls: false
         BlockPublicPolicy: false
-        IgnorePublicAcls: true
-        RestrictPublicBuckets: false
       WebsiteConfiguration:
         IndexDocument: index.html
         ErrorDocument: 404.html
@@ -32,7 +26,6 @@ Resources:
           Principal: '*'
           Action: s3:GetObject
           Resource: !Join ['', ['arn:aws:s3:::', !Ref 'WebsiteBucket', /*]]
-
 Outputs:
   WebsiteURL:
     Value: !GetAtt WebsiteBucket.WebsiteURL
