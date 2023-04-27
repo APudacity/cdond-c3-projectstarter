@@ -170,10 +170,6 @@ jobs:
             --filters "Name=tag:Name,Values=backend-${CIRCLE_WORKFLOW_ID}" \
             --output text >> inventory.txt
             cat inventory.txt
-      - run:
-          name: Install tar/gzip utility
-          command: |
-            yum -y install tar gzip
       - persist_to_workspace:
           root: .circleci/ansible
           paths:
