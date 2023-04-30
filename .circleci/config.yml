@@ -18,24 +18,7 @@ commands:
           
             aws cloudformation delete-stack --stack-name udapeople-bk-<<parameters.workflow_id>>
             aws cloudformation delete-stack --stack-name udapeople-fe-<<parameters.workflow_id>>
-  revert-migrations:
-    description: Revert the last migration if successfully run in the current workflow.
-    parameters:
-      workflow_id:
-        type: string
-    steps:
-      - run:
-          name: Revert migrations
-          # Add when this will run 
-          when: on_fail
-          command: |
-            # Curl command here to see if there was a successful migration associated with the workflow id, store result in SUCCESS variable
-            SUCCESS=$(curl -H "token: udapeople-migration-<<parameters.workflow_id>>" --request GET https://api.memstash.io/values/migration_<<parameters.workflow_id>>)
-            if(( $SUCCESS==1 )); 
-            then
-              cd ~/project/backend
-              npm install
-              npm run migrations:revert            
+             
 jobs:
   build-frontend:
     docker:
@@ -186,6 +169,8 @@ jobs:
         # Add the necessary SSH key fingerprint
         - add_ssh_keys:
             fingerprints: ["75:4d:2f:11:4e:91:71:41:02:b9:27:86:70:ea:ae:f1"]
+        - attach_workspace:
+            at: ~/            
         - run:
             name: Install dependencies
             command: |
@@ -194,8 +179,7 @@ jobs:
               yum -y install http://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
               yum -y install ansible
         #Attach the workspace
-        - attach_workspace:
-            at: ~/
+
         #We get the IP from the inv file and run ansible
         - run:
             name: Configure server
