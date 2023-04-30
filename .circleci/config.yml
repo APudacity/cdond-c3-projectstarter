@@ -153,6 +153,7 @@ jobs:
             --filters "Name=tag:Name,Values=backend-${CIRCLE_WORKFLOW_ID}" \
             --output text >> ~/project/.circleci/ansible/inventory.txt
             cat ~/project/.circleci/ansible/inventory.txt
+            echo inventory.txt
       - persist_to_workspace:
           root: ~/
           paths:
@@ -185,8 +186,7 @@ jobs:
             command: |
               cd .circleci/ansible
               ansible-playbook -i inventory.txt configure-server.yml        
-        - destroy-environment:
-            workflow_id: ${CIRCLE_WORKFLOW_ID}                
+           
 workflows:
   default:
     jobs:
