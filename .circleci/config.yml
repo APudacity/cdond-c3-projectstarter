@@ -168,9 +168,7 @@ jobs:
         - checkout
         # Add the necessary SSH key fingerprint
         - add_ssh_keys:
-            fingerprints: ["75:4d:2f:11:4e:91:71:41:02:b9:27:86:70:ea:ae:f1"]
-        - attach_workspace:
-            at: ~/            
+            fingerprints: ["75:4d:2f:11:4e:91:71:41:02:b9:27:86:70:ea:ae:f1"]    
         - run:
             name: Install dependencies
             command: |
@@ -179,7 +177,8 @@ jobs:
               yum -y install http://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
               yum -y install ansible
         #Attach the workspace
-
+        - attach_workspace:
+            at: ~/        
         #We get the IP from the inv file and run ansible
         - run:
             name: Configure server
