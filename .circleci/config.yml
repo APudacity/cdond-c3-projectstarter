@@ -227,6 +227,10 @@ jobs:
               echo "it worked"
             else
               echo "It failed"
+              cd ~/project/backend
+              npm install
+              # Add revert code here. You can find this in the Getting Started section.<done>
+              npm run migrations:revert              
             fi
       # Here's where you will add some code to rollback on failure                
       - destroy-environment:
