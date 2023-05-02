@@ -224,9 +224,9 @@ jobs:
             cd backend
             if grep -q "has been executed successfully." migrations_file.txt
             then
-              curl -H "Content-Type: text/plain" -H "token: udapeople-migration-${CIRCLE_WORKFLOW_ID}" --request PUT --data "1" https://api.memstash.io/values/migration_${CIRCLE_WORKFLOW_ID}
+              echo "it worked"
             else
-              echo $(curl -H "Content-Type: text/plain" -H "token: udapeople-migration-${CIRCLE_WORKFLOW_ID}" --request PUT --data "0" https://api.memstash.io/values/migration_${CIRCLE_WORKFLOW_ID})
+              echo "It failed"
             fi
       # Here's where you will add some code to rollback on failure                
       - destroy-environment:
