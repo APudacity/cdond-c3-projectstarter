@@ -286,11 +286,12 @@ jobs:
       - run:
           name: Install dependencies
           command: |
-              npm install
               yum update
               yum install -y tar gzip unzip
               yum -y install http://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
               yum -y install ansible
+              npm install
+
       - run:
           name: Deploy backend
           command: |
