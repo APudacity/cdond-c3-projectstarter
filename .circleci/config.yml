@@ -278,11 +278,11 @@ jobs:
     steps:
       - checkout
       - add_ssh_keys:
-          fingerprints: ["75:4d:2f:11:4e:91:71:41:02:b9:27:86:70:ea:ae:f1"]      # Add ssh keys with fingerprint
+          fingerprints: ["75:4d:2f:11:4e:91:71:41:02:b9:27:86:70:ea:ae:f1"]
       - restore_cache:
           keys: [backend-build]
       - attach_workspace:
-          at: /tmp/.circleci/ansible
+          at: ~/        
       - run:
           name: Install dependencies
           command: |
@@ -303,13 +303,15 @@ jobs:
             echo TYPEORM_USERNAME=$TYPEORM_USERNAME >> "backend/.env"
             echo TYPEORM_PASSWORD=$TYPEORM_PASSWORD >> "backend/.env"
             echo TYPEORM_DATABASE=$TYPEORM_DATABASE >> "backend/.env"
-            
-            tar -C backend -czvf backend.tar.gz .
-            
-            cat ~/project/.circleci/ansible/inventory.txt
-                        
+            tar -C backend -czvf backend.tar.gz
+            cat ~/project/.circleci/ansible/inventory.txt                        
             export ANSIBLE_HOST_KEY_CHECKING=False
-            ansible-playbook -i  /tmp/.circleci/ansible/inventory.txt .circleci/ansible/deploy-backend.yml                                         
+            ansible-playbook -i  /tmp/.circleci/ansible/inventory.txt .circleci/ansible/deploy-backend.yml       
+      - destroy-environment:
+          workflow_id: ${CIRCLE_WORKFLOW_ID}
+      - revert-migrations:
+          workflow_id: ${CIRCLE_WORKFLOW_ID}  
+                                              
 workflows:
   default:
     jobs:
