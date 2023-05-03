@@ -281,8 +281,6 @@ jobs:
           fingerprints: ["75:4d:2f:11:4e:91:71:41:02:b9:27:86:70:ea:ae:f1"]
       - restore_cache:
           keys: [backend-build]
-      - attach_workspace:
-          at: ~/        
       - run:
           name: Install dependencies
           command: |
@@ -290,8 +288,9 @@ jobs:
               yum install -y tar gzip unzip
               yum -y install http://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
               yum -y install ansible
-              npm install
-
+              npm install          
+      - attach_workspace:
+          at: ~/        
       - run:
           name: Deploy backend
           command: |
