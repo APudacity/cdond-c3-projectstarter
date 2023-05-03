@@ -235,7 +235,7 @@ jobs:
           workflow_id: ${CIRCLE_WORKFLOW_ID}   
   deploy-frontend:
     docker:
-        - image: amazon/aws-cli
+      - image: amazon/aws-cli
     steps:
       - checkout
       - restore_cache:
@@ -274,7 +274,7 @@ jobs:
 
   deploy-backend:
     docker:
-      - image: amazon/aws-cli      
+      - image: amazon/aws-cli:latest
     steps:
       - checkout
       - add_ssh_keys:
