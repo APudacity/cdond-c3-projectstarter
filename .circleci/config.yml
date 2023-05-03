@@ -1,5 +1,4 @@
 version: 2.1 
-
 orbs:
   node: circleci/node@3.0.0
 commands:          
@@ -285,6 +284,10 @@ jobs:
       - run:
           name: Install dependencies
           command: |
+              yum install -y curl tar gzip sudo
+              # Install Nodejs
+              curl -sL https://rpm.nodesource.com/setup_13.x | sudo bash -
+              yum install -y nodejs          
               yum update
               yum install -y tar gzip unzip
               yum -y install http://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm ansible
