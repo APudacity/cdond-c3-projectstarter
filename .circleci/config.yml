@@ -275,6 +275,7 @@ jobs:
   deploy-backend:
     docker:
       - image: amazon/aws-cli:latest
+      - image: circleci/node:13.8.0      
     steps:
       - checkout
       - add_ssh_keys:
