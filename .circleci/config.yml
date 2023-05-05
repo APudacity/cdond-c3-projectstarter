@@ -176,7 +176,7 @@ jobs:
   configure-infrastructure:
       docker:
         # Select proper image
-        - image: amazon/aws-cli:latest
+        - image: python:3.7-alpine3.11
       steps:
         - checkout
         # Add the necessary SSH key fingerprint
@@ -185,10 +185,11 @@ jobs:
         - run:
             name: Install dependencies
             command: |
-              yum update
-              yum install -y tar gzip unzip
-              yum -y install http://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm 
-              yum -y install ansible
+              apk add curl
+              apk add --upgrade bash
+              apk add --update ansible
+              apk add openssh-client
+              pip3 install awscli
         - attach_workspace:
             at: ~/        
         #We get the IP from the inv file and run ansible
