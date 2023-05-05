@@ -348,7 +348,9 @@ jobs:
             echo ${URL} 
             if curl -s ${URL} | grep "Welcome"
             then
+              echo "frond end passed"
               return 1
+              
             else
               return 1
             fi
@@ -361,10 +363,10 @@ jobs:
             else
               return 1
             fi            
-#      - destroy-environment:
-#          workflow_id: ${CIRCLE_WORKFLOW_ID}
-#      - revert-migrations:
-#          workflow_id: ${CIRCLE_WORKFLOW_ID}                                                        
+      - destroy-environment:
+          workflow_id: ${CIRCLE_WORKFLOW_ID}
+      - revert-migrations:
+          workflow_id: ${CIRCLE_WORKFLOW_ID}                                                     
 workflows:
   default:
     jobs:
