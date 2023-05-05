@@ -187,7 +187,7 @@ jobs:
             command: |
               yum update -y
               yum install -y tar gzip unzip
-              yum -y install http://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+              yum -y install http://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
               yum -y install ansible
         - attach_workspace:
             at: ~/        
@@ -289,7 +289,7 @@ jobs:
               yum install -y nodejs          
               yum update -y
               yum install -y tar gzip unzip
-              yum -y install http://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+              yum -y install http://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
               yum -y install ansible
       - attach_workspace:
           at: ~/        
@@ -330,7 +330,7 @@ jobs:
             yum install -y nodejs          
             yum update -y
             yum install -y tar gzip unzip
-            yum -y install http://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+            yum -y install http://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
             yum -y install ansible
       - run:
           name: Get backend url
