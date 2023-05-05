@@ -287,7 +287,7 @@ jobs:
               # Install Nodejs
               curl -sL https://rpm.nodesource.com/setup_13.x | sudo bash -
               yum install -y nodejs          
-              yum update
+              yum update -y
               yum install -y tar gzip unzip
               yum -y install http://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
               yum -y install ansible
@@ -328,7 +328,7 @@ jobs:
             # Install Nodejs
             curl -sL https://rpm.nodesource.com/setup_13.x | sudo bash -
             yum install -y nodejs          
-            yum update
+            yum update -y
             yum install -y tar gzip unzip
             yum -y install http://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
             yum -y install ansible
