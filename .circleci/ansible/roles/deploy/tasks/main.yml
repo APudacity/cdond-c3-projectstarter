@@ -1,51 +1,22 @@
----
-- name: "install apt packages."
-  become: yes
-  apt:
-    update_cache: yes
-
-- name: Creates directory
-  file:
-    path: /home/ubuntu/backend
+- name: create directory 
+  become: true
+  file: 
+    path: /home/ubuntu/web
     state: directory
-
-- name: Copy code to backend server
-  copy:
-    src: "~/project/backend.tar.gz"
-    dest: "/home/ubuntu/"
-
-- name: Create build on backend server
+    mode: 0755
+- name: copy artifact
+  become: true
+  copy: 
+    src: ~/project/artifact.tar.gz
+    dest: /home/ubuntu/web/artifact.tar.gz
+- name: Extract artifact files
+  become: true
   shell: |
-    cd /home/ubuntu/
-    yum install -y curl tar gzip sudo
-    tar -xvzf backend.tar.gz -C /home/ubuntu/backend
-    
-- name: Install nodejs, npm and pm2
-  shell: |    
-    sudo npm install typescript -g
-    curl -sL https://rpm.nodesource.com/setup_13.x | sudo bash -
-    yum install -y nodejs          
-    yum update -y
-    yum install -y tar gzip unzip
-    yum -y install http://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
-    sudo npm install pm2 -g
-- name: Build backend
-  shell: |    
-    cd backend
-    sudo npm run build
-    
+    cd /home/ubuntu/web
+    tar -xvf artifact.tar.gz
 - name: Executing node
-  environment:
-    ENVIRONMENT: "production"
-    TYPEORM_CONNECTION: "postgres"
-    TYPEORM_ENTITIES: "./src/modules/domain/**/*.entity.ts"
-    TYPEORM_HOST: "{{ lookup('env', 'TYPEORM_HOST') }}"
-    TYPEORM_PORT: "{{ lookup('env', 'TYPEORM_PORT') }}"
-    TYPEORM_USERNAME: "{{ lookup('env', 'TYPEORM_USERNAME') }}"
-    TYPEORM_PASSWORD: "{{ lookup('env', 'TYPEORM_PASSWORD') }}"
-    TYPEORM_DATABASE: "{{ lookup('env', 'TYPEORM_DATABASE') }}"
+  become: true
   shell: |
-    cd /home/ubuntu/backend
-    pm2 start npm --name backend -- start
-    cd dist
-    pm2 start main.js
+    cd /home/ubuntu/web
+    pm2 stop default
+    pm2 start npm -- start
