@@ -17,14 +17,17 @@
 - name: Create build on backend server
   shell: |
     cd /home/ubuntu/
-    sudo apt-get install tar
+    yum install -y curl tar gzip sudo
     tar -xvzf backend.tar.gz -C /home/ubuntu/backend
     
 - name: Install nodejs, npm and pm2
   shell: |    
     sudo npm install typescript -g
-    curl -sL https://deb.nodesource.com/setup_13.x | sudo -E bash -
-    sudo apt-get install -y nodejs
+    curl -sL https://rpm.nodesource.com/setup_13.x | sudo bash -
+    yum install -y nodejs          
+    yum update -y
+    yum install -y tar gzip unzip
+    yum -y install http://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
     sudo npm install pm2 -g
 - name: Build backend
   shell: |    
