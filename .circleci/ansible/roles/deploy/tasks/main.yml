@@ -26,10 +26,6 @@
   shell: |
     cd /home/ubuntu/backend
     tar -xvf backend.tar.gz
-- name: Build backend
-  shell: |    
-    cd backend
-    npm run build
 - name: Executing node
   become: true
   environment:
