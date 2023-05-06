@@ -363,7 +363,7 @@ jobs:
             --output text >> .circleci/Backend_IP.txt  
             cat .circleci/Backend_IP.txt
             export API_IP=$(cat .circleci/Backend_IP.txt)    
-            export API_URL="http://${API_IP}:3030"
+            export API_URL="https://${API_IP}:3030"
             echo "${API_URL}"
             echo "${API_IP}"     
             if curl "${API_URL}/api/status" | grep "ok"
