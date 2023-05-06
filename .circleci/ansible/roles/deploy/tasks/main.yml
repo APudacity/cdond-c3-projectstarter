@@ -9,6 +9,10 @@
   copy: 
     src: ~/project/backend.tar.gz
     dest: /home/ubuntu/web/backend.tar.gz
+    
+- name: Install nodejs, npm and pm2
+  shell: |    
+    sudo npm install pm2 -g    
 - name: Extract artifact files
   become: true
   shell: |
