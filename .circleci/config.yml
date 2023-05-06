@@ -291,6 +291,7 @@ jobs:
               yum install -y tar gzip unzip
               yum -y install http://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
               yum -y install ansible
+              npm install pm2 -g
       - attach_workspace:
           at: ~/        
       - run:
