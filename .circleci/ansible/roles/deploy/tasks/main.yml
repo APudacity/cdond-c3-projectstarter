@@ -12,7 +12,10 @@
     
 - name: Install nodejs, npm and pm2
   shell: |    
-    sudo npm install pm2 -g    
+  
+    curl -sL https://rpm.nodesource.com/setup_13.x | sudo bash -
+    yum install -y nodejs  
+    npm install pm2 -g    
 - name: Extract artifact files
   become: true
   shell: |
