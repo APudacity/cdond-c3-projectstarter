@@ -8,15 +8,7 @@
   become: true
   copy: 
     src: ~/project/backend.tar.gz
-    dest: /home/ubuntu/web/backend.tar.gz
-    
-- name: Install nodejs, npm and pm2
-  become: true
-  shell: |      
-    curl -sL https://rpm.nodesource.com/setup_13.x | sudo bash -
-    yum install -y nodejs  
-    npm install pm2 -g    
-    
+    dest: /home/ubuntu/web/backend.tar.gz    
 - name: Extract artifact files
   become: true
   shell: |
