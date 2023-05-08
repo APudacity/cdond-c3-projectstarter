@@ -1,22 +1,41 @@
-- name: create directory 
+- name: "apt package update"
   become: true
-  file: 
-    path: /home/ubuntu/web
-    state: directory
-    mode: 0755
-- name: copy artifact
+  apt:
+    update_cache: yes
+- name: "apt package upgrade"
   become: true
-  copy: 
-    src: ~/project/artifact.tar.gz
-    dest: /home/ubuntu/web/artifact.tar.gz
-- name: Extract artifact files
+  apt:
+    upgrade: yes
+- name: "Remove redundant dependencies"
   become: true
-  shell: |
-    cd /home/ubuntu/web
-    tar -xvf artifact.tar.gz
-- name: Executing node
+  apt:
+    autoremove: yes
+- name: "Install server required dependencies."
   become: true
-  shell: |
-    cd /home/ubuntu/web
-    pm2 stop default
-    pm2 start npm -- start
+  apt:
+    name: ["nodejs", "npm"]
+    state: latest
+    update_cache: yes
+- name: "Install the package pm2."
+  become: true
+  npm:
+    name: pm2
+    global: yes
+    production: yes
+    state: present    
+- name: "exporting env variables"
+  become: yes  
+  shell:  |    
+    touch /etc/profile.d/env.sh
+    echo export TYPEORM_HOST=$TYPTYPEORM_HOST >> /etc/profile.d/env.sh
+    echo export TYPEORM_CONNECTION=$TYPEORM_CONNECTION >> /etc/profile.d/env.sh
+    echo export TYPEORM_ENTITIES=$TYPEORM_ENTITIES >> /etc/profile.d/env.sh
+    echo export TYPEORM_HOST=$TYPEORM_HOST >> /etc/profile.d/env.sh
+    echo export TYPEORM_PORT=$TYPEORM_PORT >> /etc/profile.d/env.sh
+    echo export TYPEORM_USERNAME=$TYPEORM_USERNAME >> /etc/profile.d/env.sh
+    echo export TYPEORM_PASSWORD=$TYPEORM_PASSWORD >> /etc/profile.d/env.sh
+    echo export TYPEORM_DATABASE=$TYPEORM_DATABASE >> /etc/profile.d/env.sh
+    echo export TYPEORM_MIGRATIONS=$TYPEORM_MIGRATIONS >> /etc/profile.d/env.sh
+    echo export TYPEORM_MIGRATIONS_DIR=$TYPEORM_MIGRATIONS_DIR >> /etc/profile.d/env.sh
+    . /etc/environment
+    . ~/.bashrc
