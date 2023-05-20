@@ -420,7 +420,7 @@ jobs:
             echo  OldWorkflowID :  ${OldWorkflowID}
             # get all stacks
 
-                 if [ "${CIRCLE_WORKFLOW_ID}" != "${OldWorkflowID}" ]
+                 if [[ "${CIRCLE_WORKFLOW_ID}" != "${OldWorkflowID}" ]]
                  then
                     aws cloudformation delete-stack --stack-name "udapeople-bk-${OldWorkflowID}"
                     aws cloudformation delete-stack --stack-name "udapeople-fe-${OldWorkflowID}"
