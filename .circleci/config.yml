@@ -425,7 +425,7 @@ jobs:
                     aws cloudformation delete-stack --stack-name "udapeople-bk-${OldWorkflowID}"
                     aws cloudformation delete-stack --stack-name "udapeople-fe-${OldWorkflowID}"
                  else   
-                    echo 'some problem'
+                    echo "some problem"
                  fi
               done                              
 workflows:
