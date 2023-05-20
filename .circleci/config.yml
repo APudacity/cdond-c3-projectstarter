@@ -419,19 +419,14 @@ jobs:
                     --no-paginate --output text| tr -d '\n')            
             echo  OldWorkflowID :  ${OldWorkflowID}
             # get all stacks
-            export STACKS=($(aws cloudformation list-stacks --query "StackSummaries[*].StackName" \
-              --stack-status-filter CREATE_COMPLETE UPDATE_COMPLETE --no-paginate --output text))
-              
-            echo "Stacks: "  ${STACKS[@]}
-            echo "No of Stack items: "  ${#STACKS[@]}
-            for ((i=0;i<${#STACKS[@]};i++))
-              do           
-                 echo "Stacks: "  ${STACKS[i]:13}
-                 if [[ "${STACKS[i]:13}" =~ "${OldWorkflowID}" ]]
+
+                 if [ "${CIRCLE_WORKFLOW_ID}" != "${OldWorkflowID}" ]
                  then
-                    aws s3 rm s3://udapeople-"${STACKS[i]:13}" --recursive
-                    aws cloudformation delete-stack --stack-name udapeople-fe-"${STACKS[i]:13}"
-                    aws cloudformation delete-stack --stack-name udapeople-be-"${STACKS[i]:13}"
+                    aws s3 rm "s3://udapeople-${OldWorkflowID}" --recursive
+                    aws cloudformation delete-stack --stack-name "udapeople-bk-${OldWorkflowID}"
+                    aws cloudformation delete-stack --stack-name "udapeople-fe-${OldWorkflowID}"
+                 else   
+                    echo 'some problem'
                  fi
               done                              
 workflows:
