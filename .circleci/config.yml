@@ -427,9 +427,9 @@ jobs:
             for ((i=0;i<${#STACKS[@]};i++))
               do           
                  echo "Stacks: "  ${STACKS[i]:13}
-                 if [[ "${STACKS[i]:13}" =~ "${OldWorkflowID}" ]]
+                 if [[ "${STACKS[i]:13}" != "${OldWorkflowID}" ]]
                  then
-                    echo " Inside loop"
+                    echo "Inside loop"
                     aws cloudformation delete-stack --stack-name udapeople-fe-"${STACKS[i]:13}"
                     aws cloudformation delete-stack --stack-name udapeople-bk-"${STACKS[i]:13}"
                  fi
