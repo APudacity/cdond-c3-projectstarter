@@ -427,7 +427,7 @@ jobs:
                  else   
                     echo "some problem"
                  fi
-              done                              
+                                            
 workflows:
   default:
     jobs:
