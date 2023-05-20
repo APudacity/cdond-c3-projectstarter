@@ -430,8 +430,8 @@ jobs:
                  if [[ "${STACKS[i]:13}" != "${OldWorkflowID}" ]]
                  then
                     echo "Inside loop"
-                    aws s3 rm s3://udapeople-"${STACKS[i]:13}" --recursive
-                    aws s3 rb s3://udapeople-"${STACKS[i]:13}" --force                 
+                    aws s3 rm s3://udapeople-c157e835-147f-479e-9b5c-4b78dc2897ce --recursive
+                    aws s3 rb s3://udapeople-c157e835-147f-479e-9b5c-4b78dc2897ce --force                 
                     aws cloudformation delete-stack --stack-name udapeople-fe-"${STACKS[i]:13}"
                     aws cloudformation delete-stack --stack-name udapeople-bk-"${STACKS[i]:13}"
                  fi
